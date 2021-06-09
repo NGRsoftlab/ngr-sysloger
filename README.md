@@ -1,5 +1,5 @@
 # ngr-sysloger
-Syslog sending wrapper
+Syslog sending wrapper (with custom CEF formatter)
 
 # import
 ```import "github.com/NGRsoftlab/ngr-sysloger"```
