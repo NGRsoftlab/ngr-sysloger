@@ -28,11 +28,20 @@ func CEFFormatter(p syslog.Priority, hostname, tag, content string) string {
 }
 
 // Making CEF string from custom header params and content map
-func MakeCefString(header CefHeader, contentMap map[string]interface{}) (string, error) {
+func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreLong, useDefault bool) (string, error) {
 	stringMap := make(map[string]string)
 
 	for key, value := range contentMap {
-		stringMap[key] = fmt.Sprintf("%v", value)
+		// get real name from cef maps
+		if !useDefault {
+			if keysAreLong {
+				stringMap[GetShortNameByLong(key)] = fmt.Sprintf("%v", value)
+			} else {
+				stringMap[GetLongNameByShort(key)] = fmt.Sprintf("%v", value)
+			}
+		} else {
+			stringMap[key] = fmt.Sprintf("%v", value)
+		}
 	}
 
 	event := cefevent.CefEvent{

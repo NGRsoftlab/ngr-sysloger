@@ -41,7 +41,7 @@ func TestSendSingleSyslogMsg(t *testing.T) {
 	}
 
 	// for CEFFormatter
-	testData, err := MakeCefString(header, testMap)
+	testData, err := MakeCefString(header, testMap, false, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,7 +104,7 @@ func TestSendListToSyslog(t *testing.T) {
 	testData := make([]string, 0)
 	for _, el := range testMap {
 		// for CEFFormatter
-		testDataStr, err := MakeCefString(header, el)
+		testDataStr, err := MakeCefString(header, el, false, true)
 		if err != nil {
 			t.Fatal(err)
 		}

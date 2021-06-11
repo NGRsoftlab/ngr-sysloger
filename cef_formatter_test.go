@@ -14,6 +14,7 @@ func TestFormatter(t *testing.T) {
 
 	f["src"] = "127.0.0.1"
 	f["num"] = 6
+	f["deviceAction"] = "uuuuu"
 	f["requestClientApplication"] = "Go-http-client/1.1"
 
 	stringEvent, err := MakeCefString(CefHeader{
@@ -24,7 +25,7 @@ func TestFormatter(t *testing.T) {
 		DeviceEventClassId: "FLAKY_EVENT",
 		Name:               "Something flaky happened.",
 		Severity:           "Medium",
-	}, f)
+	}, f, true, false)
 	if err != nil {
 		t.Fatal("Need to handle this.")
 	}
