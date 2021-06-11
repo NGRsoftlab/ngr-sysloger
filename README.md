@@ -1,5 +1,6 @@
 # ngr-sysloger
 Syslog sending wrapper (with custom CEF formatter)
+Supports UnixFormatter, RFC3164Formatter, RFC5424Formatter, DefaultFormatter from origin github.com/RackSec/srslog
 
 # import
 ```import "github.com/NGRsoftlab/ngr-sysloger"```
