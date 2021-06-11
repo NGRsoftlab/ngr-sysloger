@@ -24,7 +24,7 @@ Supports UnixFormatter, RFC3164Formatter, RFC5424Formatter, DefaultFormatter fro
 	}
 
 	// for CEFFormatter
-	testData, err := MakeCefString(header, testMap)
+	testData, err := MakeCefString(header, testMap, false, true)
 	if err != nil {
 		log.Fatal(err)
 	}
