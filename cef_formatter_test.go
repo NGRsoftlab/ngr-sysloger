@@ -25,7 +25,7 @@ func TestFormatter(t *testing.T) {
 		DeviceEventClassId: "FLAKY_EVENT",
 		Name:               "Something flaky happened.",
 		Severity:           "Medium",
-	}, f, true, false)
+	}, f, true, false, false)
 	if err != nil {
 		t.Fatal("Need to handle this.")
 	}
