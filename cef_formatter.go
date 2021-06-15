@@ -34,16 +34,22 @@ func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreL
 	for key, value := range contentMap {
 		// get real name from cef maps
 		if !useDefault {
-			if keysAreLong {
-				stringMap[GetShortNameByLong(key)] = fmt.Sprintf("%v", value)
+			okKey := CheckKey(key)
+
+			if !okKey {
+				// if we need some additional fields
+				if useCustom {
+					stringMap[key] = fmt.Sprintf("%v", value)
+				}
 			} else {
-				stringMap[GetLongNameByShort(key)] = fmt.Sprintf("%v", value)
+				if keysAreLong {
+					stringMap[GetShortNameByLong(key)] = fmt.Sprintf("%v", value)
+				} else {
+					stringMap[GetLongNameByShort(key)] = fmt.Sprintf("%v", value)
+				}
 			}
 		} else {
-			// if we need some additional fields
-			if useCustom {
-				stringMap[key] = fmt.Sprintf("%v", value)
-			}
+			stringMap[key] = fmt.Sprintf("%v", value)
 		}
 	}
 
