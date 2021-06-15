@@ -8,6 +8,13 @@ type FieldInfo struct {
 	Description string `json:"description"`
 }
 
+func CheckKey(testKey string) bool {
+	_, ok1 := LongNamesExtensionDictionary[testKey]
+	_, ok2 := ShortNamesExtensionDictionary[testKey]
+
+	return ok1 || ok2
+}
+
 func GetShortNameByLong(shortName string) string {
 	res, ok := LongNamesExtensionDictionary[shortName]
 	if ok {
