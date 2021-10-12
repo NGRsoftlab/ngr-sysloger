@@ -17,10 +17,10 @@ import (
 
 // Syslog dial params
 type SyslogParams struct {
-	Level    int         `json:"level"`    // syslog level info/error/fatal
-	Host     string      `json:"host"`     // host to send
-	Port     interface{} `json:"port"`     // port to send
-	Protocol string      `json:"protocol"` // tcp\udp
+	Level    int    `json:"level"`    // syslog level info/error/fatal
+	Host     string `json:"host"`     // host to send
+	Port     int    `json:"port"`     // port to send
+	Protocol string `json:"protocol"` // tcp\udp
 
 	Priority syslog.Priority
 	Tag      string `json:"tag"` // syslog tag
@@ -41,10 +41,10 @@ func NewSyslogWriter(params SyslogParams, formatter syslog.Formatter) (*syslog.W
 		}
 
 		sysLogger, err = syslog.DialWithTLSConfig(params.Protocol,
-			fmt.Sprintf("%s:%s", params.Host, params.Port), params.Priority, params.Tag, params.TlsConf)
+			fmt.Sprintf("%s:%d", params.Host, params.Port), params.Priority, params.Tag, params.TlsConf)
 	} else {
 		sysLogger, err = syslog.Dial(params.Protocol,
-			fmt.Sprintf("%s:%s", params.Host, params.Port), params.Priority, params.Tag)
+			fmt.Sprintf("%s:%d", params.Host, params.Port), params.Priority, params.Tag)
 	}
 
 	if err != nil {
