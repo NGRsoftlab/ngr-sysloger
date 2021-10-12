@@ -49,7 +49,7 @@ func TestSendSingleSyslogMsg(t *testing.T) {
 	err = SendSingleSyslogMsg(SyslogParams{
 		Level:    5,
 		Host:     "127.0.0.1",
-		Port:     "555",
+		Port:     555,
 		Protocol: "tcp",
 		Priority: 0,
 		Tag:      "test",
@@ -115,7 +115,7 @@ func TestSendListToSyslog(t *testing.T) {
 	err := SendListToSyslog(SyslogParams{
 		Level:    3,
 		Host:     "127.0.0.1",
-		Port:     "555",
+		Port:     555,
 		Protocol: "tcp",
 		Priority: 0,
 		Tag:      "test",
