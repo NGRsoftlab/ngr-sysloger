@@ -11,11 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-
-// Syslog dial params
+// SyslogParams syslog dial params
 type SyslogParams struct {
 	Level    int    `json:"level"`    // syslog level info/error/fatal
 	Host     string `json:"host"`     // host to send
@@ -29,7 +25,7 @@ type SyslogParams struct {
 	TlsConf *tls.Config
 }
 
-// Create new syslog writer with params and custom formatter
+// NewSyslogWriter create new syslog writer with params and custom formatter
 func NewSyslogWriter(params SyslogParams, formatter syslog.Formatter) (*syslog.Writer, error) {
 	var sysLogger *syslog.Writer
 	var err error

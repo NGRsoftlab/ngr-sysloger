@@ -11,7 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// CEF header parameters
+// CefHeader CEF header parameters
 type CefHeader struct {
 	Version                                    int
 	DeviceVendor, DeviceProduct, DeviceVersion string
@@ -20,14 +20,14 @@ type CefHeader struct {
 	Severity                                   string
 }
 
-// Custom Formatter for CEF (for github.com/RackSec/srslog lib)
+// CEFFormatter custom Formatter for CEF (for github.com/RackSec/srslog lib)
 func CEFFormatter(p syslog.Priority, hostname, tag, content string) string {
 	timestamp := time.Now().Format(time.Stamp)
 	msg := fmt.Sprintf("%s %s %s", timestamp, hostname, content)
 	return msg
 }
 
-// Making CEF string from custom header params and content map
+// MakeCefString making CEF string from custom header params and content map
 func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreLong, useDefault, useCustom bool) (string, error) {
 	stringMap := make(map[string]string)
 
