@@ -60,6 +60,8 @@ func NewSyslogWriterWithTimeout(params SyslogParams, formatter syslog.Formatter,
 	var sysLogger *syslog.Writer
 	var err error
 	var dial func(network, addr string) (net.Conn, error)
+	netDialer := new(net.Dialer)
+	netDialer.Timeout = timeout
 
 	if params.NeedTls {
 		if params.TlsConf == nil {
@@ -69,12 +71,12 @@ func NewSyslogWriterWithTimeout(params SyslogParams, formatter syslog.Formatter,
 
 		dial = func(network, addr string) (net.Conn, error) {
 			// cannot use "network" here as it'll simply be "custom" which will fail
-			return tls.DialWithDialer(&net.Dialer{Timeout: timeout}, params.Protocol, addr, params.TlsConf)
+			return tls.DialWithDialer(netDialer, params.Protocol, addr, params.TlsConf)
 		}
 	} else {
 		dial = func(network, addr string) (net.Conn, error) {
 			// cannot use "network" here as it'll simply be "custom" which will fail
-			return tls.DialWithDialer(&net.Dialer{Timeout: timeout}, params.Protocol, addr, nil)
+			return net.DialTimeout(params.Protocol, addr, timeout)
 		}
 	}
 
