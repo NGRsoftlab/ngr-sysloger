@@ -114,7 +114,7 @@ func TestSendSingleSyslogMsgWithTimeout(t *testing.T) {
 	},
 		CEFFormatter,
 		testData,
-		2*time.Hour)
+		2*time.Second)
 	if err != nil {
 		t.Fatal("Bad TestSendSingleSyslogMsg: ", err)
 	}
