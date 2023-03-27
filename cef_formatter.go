@@ -32,6 +32,25 @@ func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreL
 	stringMap := make(map[string]string)
 
 	for key, value := range contentMap {
+		valueToSend := ""
+
+		switch value.(type) {
+		case float32:
+			if value == float32(int32(value.(float32))) {
+				valueToSend = fmt.Sprintf("%d", int32(value.(float32)))
+			} else {
+				valueToSend = fmt.Sprintf("%f", value)
+			}
+		case float64:
+			if value == float64(int64(value.(float64))) {
+				valueToSend = fmt.Sprintf("%d", int64(value.(float64)))
+			} else {
+				valueToSend = fmt.Sprintf("%f", value)
+			}
+		default:
+			valueToSend = fmt.Sprintf("%v", value)
+		}
+
 		// get real name from cef maps
 		if !useDefault {
 			okKey := CheckKey(key)
@@ -39,17 +58,17 @@ func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreL
 			if !okKey {
 				// if we need some additional fields
 				if useCustom {
-					stringMap[key] = fmt.Sprintf("%v", value)
+					stringMap[key] = valueToSend
 				}
 			} else {
 				if keysAreLong {
-					stringMap[GetShortNameByLong(key)] = fmt.Sprintf("%v", value)
+					stringMap[GetShortNameByLong(key)] = valueToSend
 				} else {
-					stringMap[GetLongNameByShort(key)] = fmt.Sprintf("%v", value)
+					stringMap[GetLongNameByShort(key)] = valueToSend
 				}
 			}
 		} else {
-			stringMap[key] = fmt.Sprintf("%v", value)
+			stringMap[key] = valueToSend
 		}
 	}
 
