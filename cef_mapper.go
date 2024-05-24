@@ -1,3 +1,4 @@
+// Copyright 2020-2024 NGR Softlab
 package sysloger
 
 type FieldInfo struct {

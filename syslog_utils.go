@@ -1,13 +1,12 @@
-// Copyright 2020-2022 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package sysloger
 
 import (
-	"fmt"
 	"time"
 
 	syslog "github.com/RackSec/srslog"
-	log "github.com/sirupsen/logrus"
+
+	logging "github.com/NGRsoftlab/ngr-logging"
 )
 
 /////////////////////////////////////////////////////////
@@ -18,18 +17,16 @@ import (
 func SendListToSyslog(params SyslogParams, formatter syslog.Formatter, msgList []string) error {
 	writer, err := NewSyslogWriter(params, formatter)
 	if err != nil {
-		log.Error("ERROR failed to create writer:", err)
+		logging.Logger.Errorf("ERROR failed to create writer: %s", err.Error())
 		return err
 	}
 
 	defer func() { _ = writer.Close() }()
 
-	log.Info(fmt.Sprintf("need write: %d msgs to syslog", len(msgList)))
-
 	for i, msg := range msgList {
 		_, errW := doSuitableMethod(writer, params.Level, msg)
 		if errW != nil {
-			log.Warning(fmt.Sprintf("ERROR writing to syslog: %d %v", i, errW))
+			logging.Logger.Warningf("ERROR writing to syslog: %d %v", i, errW)
 		}
 	}
 
@@ -40,17 +37,15 @@ func SendListToSyslog(params SyslogParams, formatter syslog.Formatter, msgList [
 func SendSingleSyslogMsg(params SyslogParams, formatter syslog.Formatter, msg string) error {
 	writer, err := NewSyslogWriter(params, formatter)
 	if err != nil {
-		log.Error("ERROR failed to create writer:", err)
+		logging.Logger.Errorf("ERROR failed to create writer: %s", err.Error())
 		return err
 	}
 
 	defer func() { _ = writer.Close() }()
 
-	log.Info("need write: 1 msg to syslog")
-
 	_, errW := doSuitableMethod(writer, params.Level, msg)
 	if errW != nil {
-		log.Error("ERROR writing to syslog: ", errW)
+		logging.Logger.Errorf("ERROR writing to syslog: %s", errW.Error())
 		return errW
 	}
 
@@ -61,18 +56,16 @@ func SendSingleSyslogMsg(params SyslogParams, formatter syslog.Formatter, msg st
 func SendListToSyslogWithTimeout(params SyslogParams, formatter syslog.Formatter, msgList []string, timeout time.Duration) error {
 	writer, err := NewSyslogWriterWithTimeout(params, formatter, timeout)
 	if err != nil {
-		log.Error("ERROR failed to create writer:", err)
+		logging.Logger.Errorf("ERROR failed to create writer: %s", err.Error())
 		return err
 	}
 
 	defer func() { _ = writer.Close() }()
 
-	log.Info(fmt.Sprintf("need write: %d msgs to syslog", len(msgList)))
-
 	for i, msg := range msgList {
 		_, errW := doSuitableMethod(writer, params.Level, msg)
 		if errW != nil {
-			log.Warning(fmt.Sprintf("ERROR writing to syslog: %d %v", i, errW))
+			logging.Logger.Warningf("ERROR writing to syslog: %d %v", i, errW)
 		}
 	}
 
@@ -83,17 +76,15 @@ func SendListToSyslogWithTimeout(params SyslogParams, formatter syslog.Formatter
 func SendSingleSyslogMsgWithTimeout(params SyslogParams, formatter syslog.Formatter, msg string, timeout time.Duration) error {
 	writer, err := NewSyslogWriterWithTimeout(params, formatter, timeout)
 	if err != nil {
-		log.Error("ERROR failed to create writer:", err)
+		logging.Logger.Errorf("ERROR failed to create writer: %s", err.Error())
 		return err
 	}
 
 	defer func() { _ = writer.Close() }()
 
-	log.Info("need write: 1 msg to syslog")
-
 	_, errW := doSuitableMethod(writer, params.Level, msg)
 	if errW != nil {
-		log.Error("ERROR writing to syslog: ", errW)
+		logging.Logger.Errorf("ERROR writing to syslog: %s", errW.Error())
 		return errW
 	}
 
