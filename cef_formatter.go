@@ -1,5 +1,4 @@
-// Copyright 2020 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package sysloger
 
 import (
@@ -8,7 +7,8 @@ import (
 
 	syslog "github.com/RackSec/srslog"
 	"github.com/pcktdmp/cef/cefevent"
-	log "github.com/sirupsen/logrus"
+
+	logging "github.com/NGRsoftlab/ngr-logging"
 )
 
 // CefHeader CEF header parameters
@@ -85,7 +85,7 @@ func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreL
 
 	cef, err := event.Generate()
 	if err != nil {
-		log.Warning("bad cef generation: ", err)
+		logging.Logger.Errorf("bad cef generation: %s", err)
 		return "", err
 	}
 

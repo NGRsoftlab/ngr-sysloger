@@ -1,5 +1,4 @@
-// Copyright 2020 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package sysloger
 
 import (
@@ -7,25 +6,7 @@ import (
 	"time"
 )
 
-const CertPath = ""
-
-/////////////////////////////////////////////////
 func TestSendSingleSyslogMsg(t *testing.T) {
-	//t.Parallel()
-
-	//GlobalCaCert, err := ioutil.ReadFile(CertPath)
-	//if err != nil {
-	//	t.Fatal("Bad TestMakeSyslogWithFormatter1: ", err)
-	//}
-	//
-	//CaCertPool := x509.NewCertPool()
-	//CaCertPool.AppendCertsFromPEM(GlobalCaCert)
-	//
-	//tl := tls.Config{
-	//	RootCAs:            CaCertPool,
-	//	InsecureSkipVerify: true,
-	//}
-	//
 	header := CefHeader{
 		Version:            0,
 		DeviceVendor:       "Test",
@@ -47,11 +28,12 @@ func TestSendSingleSyslogMsg(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// upd test (for no response control)
 	err = SendSingleSyslogMsg(SyslogParams{
 		Level:    5,
 		Host:     "127.0.0.1",
 		Port:     555,
-		Protocol: "tcp",
+		Protocol: "udp",
 		Priority: 0,
 		Tag:      "test",
 		//NeedTls:  false,
@@ -64,23 +46,7 @@ func TestSendSingleSyslogMsg(t *testing.T) {
 	}
 }
 
-/////////////////////////////////////////////////
 func TestSendSingleSyslogMsgWithTimeout(t *testing.T) {
-	//t.Parallel()
-
-	//GlobalCaCert, err := ioutil.ReadFile(CertPath)
-	//if err != nil {
-	//	t.Fatal("Bad TestMakeSyslogWithFormatter1: ", err)
-	//}
-	//
-	//CaCertPool := x509.NewCertPool()
-	//CaCertPool.AppendCertsFromPEM(GlobalCaCert)
-	//
-	//tl := tls.Config{
-	//	RootCAs:            CaCertPool,
-	//	InsecureSkipVerify: true,
-	//}
-
 	header := CefHeader{
 		Version:            0,
 		DeviceVendor:       "Test",
@@ -102,11 +68,12 @@ func TestSendSingleSyslogMsgWithTimeout(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// upd test (for no response control)
 	err = SendSingleSyslogMsgWithTimeout(SyslogParams{
 		Level:    5,
 		Host:     "127.0.0.1",
 		Port:     555,
-		Protocol: "tcp",
+		Protocol: "udp",
 		Priority: 0,
 		Tag:      "test",
 		//NeedTls:  false,
@@ -120,23 +87,7 @@ func TestSendSingleSyslogMsgWithTimeout(t *testing.T) {
 	}
 }
 
-/////////////////////////////////////////////////
 func TestSendListToSyslog(t *testing.T) {
-	//t.Parallel()
-
-	//GlobalCaCert, err := ioutil.ReadFile(CertPath)
-	//if err != nil {
-	//	t.Fatal("Bad TestMakeSyslogWithFormatter1: ", err)
-	//}
-	//
-	//CaCertPool := x509.NewCertPool()
-	//CaCertPool.AppendCertsFromPEM(GlobalCaCert)
-	//
-	//tl := tls.Config{
-	//	RootCAs:            CaCertPool,
-	//	InsecureSkipVerify: true,
-	//}
-
 	header := CefHeader{
 		Version:            0,
 		DeviceVendor:       "Test",
@@ -169,11 +120,12 @@ func TestSendListToSyslog(t *testing.T) {
 		testData = append(testData, testDataStr)
 	}
 
+	// upd test (for no response control)
 	err := SendListToSyslog(SyslogParams{
 		Level:    3,
 		Host:     "127.0.0.1",
 		Port:     555,
-		Protocol: "tcp",
+		Protocol: "udp",
 		Priority: 0,
 		Tag:      "test",
 		//NeedTls:  false,
@@ -186,23 +138,7 @@ func TestSendListToSyslog(t *testing.T) {
 	}
 }
 
-/////////////////////////////////////////////////
 func TestSendListToSyslogWithTimeout(t *testing.T) {
-	//t.Parallel()
-
-	//GlobalCaCert, err := ioutil.ReadFile(CertPath)
-	//if err != nil {
-	//	t.Fatal("Bad TestMakeSyslogWithFormatter1: ", err)
-	//}
-	//
-	//CaCertPool := x509.NewCertPool()
-	//CaCertPool.AppendCertsFromPEM(GlobalCaCert)
-	//
-	//tl := tls.Config{
-	//	RootCAs:            CaCertPool,
-	//	InsecureSkipVerify: true,
-	//}
-
 	header := CefHeader{
 		Version:            0,
 		DeviceVendor:       "Test",
@@ -235,11 +171,12 @@ func TestSendListToSyslogWithTimeout(t *testing.T) {
 		testData = append(testData, testDataStr)
 	}
 
+	// upd test (for no response control)
 	err := SendListToSyslogWithTimeout(SyslogParams{
 		Level:    3,
 		Host:     "127.0.0.1",
 		Port:     555,
-		Protocol: "tcp",
+		Protocol: "udp",
 		Priority: 0,
 		Tag:      "test",
 		//NeedTls:  false,

@@ -1,14 +1,14 @@
-// Copyright 2020 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package sysloger
 
 import (
 	"fmt"
-	syslog "github.com/RackSec/srslog"
 	"testing"
+
+	syslog "github.com/RackSec/srslog"
 )
 
-/////////////////////////////////////////////////
+// ///////////////////////////////////////////////
 func TestFormatter(t *testing.T) {
 	f := make(map[string]interface{})
 

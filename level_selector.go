@@ -1,9 +1,9 @@
-// Copyright 2020 NGR Softlab
-//
+// Copyright 2020-2024 NGR Softlab
 package sysloger
 
 import (
 	"errors"
+
 	syslog "github.com/RackSec/srslog"
 )
 
