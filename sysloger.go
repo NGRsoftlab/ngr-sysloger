@@ -9,8 +9,6 @@ import (
 	"time"
 
 	syslog "github.com/RackSec/srslog"
-
-	logging "github.com/NGRsoftlab/ngr-logging"
 )
 
 // SyslogParams syslog dial params
@@ -34,7 +32,7 @@ func NewSyslogWriter(params SyslogParams, formatter syslog.Formatter) (*syslog.W
 
 	if params.NeedTls {
 		if params.TlsConf == nil {
-			logging.Logger.Error("ERROR nil TlsConf")
+			logger.Error("ERROR nil TlsConf")
 			return nil, errors.New("nil TlsConf")
 		}
 
@@ -46,7 +44,7 @@ func NewSyslogWriter(params SyslogParams, formatter syslog.Formatter) (*syslog.W
 	}
 
 	if err != nil {
-		logging.Logger.Errorf("ERROR failed to dial syslog: %s", err.Error())
+		logger.Errorf("ERROR failed to dial syslog: %s", err.Error())
 		return nil, err
 	}
 
@@ -65,7 +63,7 @@ func NewSyslogWriterWithTimeout(params SyslogParams, formatter syslog.Formatter,
 
 	if params.NeedTls {
 		if params.TlsConf == nil {
-			logging.Logger.Error("ERROR nil TlsConf")
+			logger.Error("ERROR nil TlsConf")
 			return nil, errors.New("nil TlsConf")
 		}
 
@@ -84,7 +82,7 @@ func NewSyslogWriterWithTimeout(params SyslogParams, formatter syslog.Formatter,
 	sysLogger, err = syslog.DialWithCustomDialer("custom", fmt.Sprintf("%s:%d", params.Host, params.Port),
 		params.Priority, params.Tag, dial)
 	if err != nil {
-		logging.Logger.Errorf("ERROR failed to dial syslog: %s", err.Error())
+		logger.Errorf("ERROR failed to dial syslog: %s", err.Error())
 		return nil, err
 	}
 

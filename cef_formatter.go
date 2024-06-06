@@ -7,8 +7,6 @@ import (
 
 	syslog "github.com/RackSec/srslog"
 	"github.com/pcktdmp/cef/cefevent"
-
-	logging "github.com/NGRsoftlab/ngr-logging"
 )
 
 // CefHeader CEF header parameters
@@ -85,7 +83,7 @@ func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreL
 
 	cef, err := event.Generate()
 	if err != nil {
-		logging.Logger.Errorf("bad cef generation: %s", err)
+		logger.Errorf("bad cef generation: %s", err)
 		return "", err
 	}
 
