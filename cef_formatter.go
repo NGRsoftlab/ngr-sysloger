@@ -26,7 +26,9 @@ func CEFFormatter(p syslog.Priority, hostname, tag, content string) string {
 }
 
 // MakeCefString making CEF string from custom header params and content map
-func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreLong, useDefault, useCustom bool) (string, error) {
+func MakeCefString(
+	header CefHeader, contentMap map[string]interface{}, keysAreLong, useDefault, useCustom bool,
+) (string, error) {
 	stringMap := make(map[string]string)
 
 	for key, value := range contentMap {
@@ -81,7 +83,7 @@ func MakeCefString(header CefHeader, contentMap map[string]interface{}, keysAreL
 		Extensions:         stringMap,
 	}
 
-	cef, err := event.Generate()
+	cef, err := event.String()
 	if err != nil {
 		logger.Errorf("bad cef generation: %s", err)
 		return "", err
